@@ -7,5 +7,4 @@ export default defineConfig({
   server: {
     open: true,
   },
-  base: '/abcs/', // Replace 'abcs' with your repository name
 });
