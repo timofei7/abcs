@@ -1,79 +1,83 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/no-array-index-key */
+import React from 'react';
+
 // Common emojis that kids might enjoy
 const EMOJIS = [
-  "😀",
-  "😃",
-  "😄",
-  "😁",
-  "😆",
-  "😅",
-  "😂",
-  "🤣",
-  "😊",
-  "😇",
-  "🙂",
-  "🙃",
-  "😉",
-  "😌",
-  "😍",
-  "🥰",
-  "😘",
-  "😗",
-  "😙",
-  "😚",
-  "😋",
-  "😛",
-  "😝",
-  "😜",
-  "🤪",
-  "🤨",
-  "🧐",
-  "🤓",
-  "😎",
-  "🤩",
-  "🦁",
-  "🐯",
-  "🐱",
-  "🐶",
-  "🐼",
-  "🐨",
-  "🐵",
-  "🙈",
-  "🙉",
-  "🙊",
-  "🐔",
-  "🐧",
-  "🐦",
-  "🐤",
-  "🐣",
-  "🦆",
-  "🦅",
-  "🦉",
-  "🦇",
-  "🐺",
-  "🐗",
-  "🐴",
-  "🦄",
-  "🐝",
-  "🐛",
-  "🦋",
-  "🐌",
-  "🐞",
-  "🐜",
-  "🦟",
-]
+  '😀',
+  '😃',
+  '😄',
+  '😁',
+  '😆',
+  '😅',
+  '😂',
+  '🤣',
+  '😊',
+  '😇',
+  '🙂',
+  '🙃',
+  '😉',
+  '😌',
+  '😍',
+  '🥰',
+  '😘',
+  '😗',
+  '😙',
+  '😚',
+  '😋',
+  '😛',
+  '😝',
+  '😜',
+  '🤪',
+  '🤨',
+  '🧐',
+  '🤓',
+  '😎',
+  '🤩',
+  '🦁',
+  '🐯',
+  '🐱',
+  '🐶',
+  '🐼',
+  '🐨',
+  '🐵',
+  '🙈',
+  '🙉',
+  '🙊',
+  '🐔',
+  '🐧',
+  '🐦',
+  '🐤',
+  '🐣',
+  '🦆',
+  '🦅',
+  '🦉',
+  '🦇',
+  '🐺',
+  '🐗',
+  '🐴',
+  '🦄',
+  '🐝',
+  '🐛',
+  '🦋',
+  '🐌',
+  '🐞',
+  '🐜',
+  '🦟',
+];
 
-export function Keyboard({ onKeyPress, showEmojis }) {
+export default function Keyboard({ onKeyPress, showEmojis }) {
   // Define keyboard layouts
   const alphabetRows = [
-    ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
-    ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-    ["Z", "X", "C", "V", "B", "N", "M"],
-  ]
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M'],
+  ];
 
   // Create emoji grid (5x10)
-  const emojiRows = []
+  const emojiRows = [];
   for (let i = 0; i < EMOJIS.length; i += 10) {
-    emojiRows.push(EMOJIS.slice(i, i + 10))
+    emojiRows.push(EMOJIS.slice(i, i + 10));
   }
 
   return (
@@ -116,19 +120,19 @@ export function Keyboard({ onKeyPress, showEmojis }) {
           <div className="flex justify-center gap-1 mt-1">
             <button
               className="w-20 h-14 sm:h-16 bg-white rounded-lg text-xl font-bold flex items-center justify-center shadow hover:bg-gray-50 active:bg-gray-200"
-              onClick={() => onKeyPress("Backspace")}
+              onClick={() => onKeyPress('Backspace')}
             >
               ⌫
             </button>
             <button
               className="flex-1 h-14 sm:h-16 bg-white rounded-lg text-xl font-bold flex items-center justify-center shadow hover:bg-gray-50 active:bg-gray-200"
-              onClick={() => onKeyPress(" ")}
+              onClick={() => onKeyPress(' ')}
             >
               Space
             </button>
             <button
               className="w-20 h-14 sm:h-16 bg-white rounded-lg text-xl font-bold flex items-center justify-center shadow hover:bg-gray-50 active:bg-gray-200"
-              onClick={() => onKeyPress("Enter")}
+              onClick={() => onKeyPress('Enter')}
             >
               ↵
             </button>
@@ -136,6 +140,5 @@ export function Keyboard({ onKeyPress, showEmojis }) {
         </div>
       )}
     </div>
-  )
+  );
 }
-

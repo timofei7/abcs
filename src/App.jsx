@@ -1,80 +1,107 @@
-import React, { useCallback, useState, useEffect } from 'react'
+/* eslint-disable react/button-has-type */
+import React, { useCallback, useState, useEffect } from 'react';
 
-import { Keyboard } from "./components/keyboard"
-import { LetterDisplay } from "./components/letter-display"
-import { AIPrompt } from "./components/ai-prompt"
-import { VoiceSelector } from "./components/voice-selector"
+import Keyboard from './components/keyboard';
+import LetterDisplay from './components/letter-display';
+import AIPrompt from './components/ai-prompt';
+import VoiceSelector from './components/voice-selector';
 
 export default function App() {
-  const [letters, setLetters] = useState([])
-  const [currentWord, setCurrentWord] = useState("")
-  const [showEmojis, setShowEmojis] = useState(false)
-  const [selectedVoice, setSelectedVoice] = useState(null)
+  const [letters, setLetters] = useState([]);
+  const [currentWord, setCurrentWord] = useState('');
+  const [showEmojis, setShowEmojis] = useState(true);
+  const [selectedVoice, setSelectedVoice] = useState(null);
 
   // Handle keyboard input
   const handleKeyPress = (key) => {
     // Add the letter to our display
-    setLetters((prev) => [...prev, key])
+    setLetters((prev) => [...prev, key]);
 
     // Update current word
-    if (key === " " || key === "Enter") {
-      setCurrentWord("")
-    } else if (key === "Backspace") {
-      setCurrentWord((prev) => prev.slice(0, -1))
+    if (key === ' ' || key === 'Enter') {
+      setCurrentWord('');
+    } else if (key === 'Backspace') {
+      setCurrentWord((prev) => prev.slice(0, -1));
     } else {
-      setCurrentWord((prev) => prev + key)
+      setCurrentWord((prev) => prev + key);
     }
 
     // Play the sound for the letter
-    playLetterSound(key)
+    // eslint-disable-next-line no-use-before-define
+    playLetterSound(key);
   }
 
   // Play sound for letter
   const playLetterSound = (letter) => {
-    if (letter === " " || letter === "Enter" || letter === "Backspace") return
+    if (letter === ' ' || letter === 'Enter' || letter === 'Backspace') return;
 
-    const letterToSpeak = letter.toLowerCase()
+    const letterToSpeak = letter.toLowerCase();
 
     const utterance = new SpeechSynthesisUtterance(letterToSpeak)
     if (selectedVoice) {
-      console.log("on play letter " + selectedVoice.name);
-      utterance.voice = selectedVoice
+      console.log(`on play letter ${selectedVoice.name}`);
+      utterance.voice = selectedVoice;
     }
 
-    utterance.rate = 0.75 // Slightly slower for kids
-    window.speechSynthesis.speak(utterance)
-  }
+    utterance.rate = 0.75; // Slightly slower for kids
+    window.speechSynthesis.speak(utterance);
+  };
 
   // Clear all letters
   const clearLetters = () => {
-    setLetters([])
-    setCurrentWord("")
-  }
+    setLetters([]);
+    setCurrentWord('');
+  };
 
   // Toggle emoji keyboard
   const toggleEmojis = () => {
-    setShowEmojis((prev) => !prev)
-  }
+    setShowEmojis((prev) => !prev);
+  };
 
   // Handle physical keyboard input
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key.length === 1 || e.key === "Backspace" || e.key === "Enter" || e.key === " ") {
-        handleKeyPress(e.key)
+      if (e.key.length === 1 || e.key === 'Backspace' || e.key === 'Enter' || e.key === ' ') {
+        handleKeyPress(e.key);
       }
-    }
+    };
 
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [selectedVoice])
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedVoice]);
 
   const handleVoiceChange = useCallback((voice) => {
-    console.log("voice change? " + voice?.name);
-    setSelectedVoice(voice)
-  }, [])
+    console.log(`voice change? ${voice?.name}`);
+    setSelectedVoice(voice);
+  }, []);
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-between p-4 bg-gradient-to-b from-blue-100 to-purple-100">
+    <main className="relative min-h-screen flex flex-col items-center justify-between p-4 bg-gradient-to-b from-blue-100 to-purple-100 overflow-hidden">
+      <div className="absolute top-0 left-0 w-full flex justify-center space-x-2">
+        {Array.from({ length: 100 }, (_, i) => (
+          <span key={`top-${i}`} role="img" aria-label="emoji border">🎉</span>
+        ))}
+      </div>
+      <div className="absolute bottom-0 left-0 w-full flex justify-center space-x-2">
+        {Array.from({ length: 100 }, (_, i) => (
+          <span key={`bottom-${i}`} role="img" aria-label="emoji border">🎉</span>
+        ))}
+      </div>
+
+      <div className="absolute top-0 left-0 h-full flex flex-col justify-around">
+        {Array.from({ length: 100 }, (_, i) => (
+          <span key={`left-${i}`} role="img" aria-label="emoji border">🎉</span>
+        ))}
+      </div>
+      {/* RIGHT border of emojis */}
+      <div className="absolute top-0 right-0 h-full flex flex-col justify-around">
+        {Array.from({ length: 100 }, (_, i) => (
+          <span key={`right-${i}`} role="img" aria-label="emoji border">🎉</span>
+        ))}
+      </div>
+
+
+
       <div className="w-full max-w-5xl flex flex-col items-center gap-8">
         <h1 className="text-4xl font-bold text-center text-purple-600 mt-4">HI VERA! Let's do letters!</h1>
 
@@ -91,9 +118,9 @@ export default function App() {
           </button>
           <button
             onClick={toggleEmojis}
-            className={`px-6 py-3 ${showEmojis ? "bg-green-600" : "bg-blue-500"} text-white rounded-full text-xl font-bold hover:opacity-90 transition-colors`}
+            className={`px-6 py-3 ${showEmojis ? 'bg-green-600' : 'bg-blue-500'} text-white rounded-full text-xl font-bold hover:opacity-90 transition-colors`}
           >
-            {showEmojis ? "ABC Keyboard" : "Emoji Keyboard"}
+            {showEmojis ? 'ABC Keyboard' : 'Emoji Keyboard'}
           </button>
         </div>
 
@@ -102,5 +129,5 @@ export default function App() {
         <VoiceSelector onVoiceChange={handleVoiceChange} />
       </div>
     </main>
-  )
+  );
 }
