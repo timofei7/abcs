@@ -120,7 +120,7 @@ export default function AIPrompt({ letters, currentWord, selectedVoice, setCurre
     <div className="w-full bg-yellow-100 rounded-xl p-6 shadow-md text-center">
       <div className="flex items-center justify-center">
         <span className="text-3xl mr-2">🤖</span>
-        <h2 className="text-2xl font-bold text-purple-700">Eebi Friend</h2>
+        <h2 className="text-2xl font-bold text-purple-700">Vivi Friend</h2>
       </div>
 
       <div className="mt-4 min-h-[80px] flex items-center justify-center">
