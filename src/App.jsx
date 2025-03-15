@@ -59,10 +59,25 @@ export default function App() {
   };
 
   // Handle physical keyboard input
+  const debouncedHandleKeyPress = useCallback(
+    (() => {
+      let timeoutId;
+      return (key) => {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+          handleKeyPress(key);
+        }, 100); // 100ms debounce delay
+      };
+    })(),
+    [selectedVoice],
+  );
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key.length === 1 || e.key === 'Backspace' || e.key === 'Enter' || e.key === ' ') {
-        handleKeyPress(e.key);
+        debouncedHandleKeyPress(e.key);
       }
     };
 

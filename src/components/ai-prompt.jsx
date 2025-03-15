@@ -21,6 +21,7 @@ const PROMPTS = [
   'What\'s your favorite toy? Try to spell it!',
   'What letter does Dada\'s name start with?',
   'What letter does Mama\'s name start with?',
+  'What letter does Nonna start with?',
   'What letter does your brothers name start with?',
   'Type the first letter of your favorite color!',
 ];
@@ -41,7 +42,9 @@ const WORD_RESPONSES = {
   v: 'that\'s a V for Vera!',
   c: 'that\'s a C for Cassian!',
   d: 'that\'s a D for Dada!',
+  n: 'that\'s an N for Nonna!',
   b: 'that\'s a B for Buddy!',
+  p: 'that\'s a P for Peppa!',
 };
 
 export default function AIPrompt({ letters, currentWord, selectedVoice, setCurrentWord }) {
@@ -82,9 +85,9 @@ export default function AIPrompt({ letters, currentWord, selectedVoice, setCurre
 
       // After showing response, generate a new prompt
       timer = setTimeout(() => {
-        setCurrentWord('');
         setShowResponse(false);
         generatePrompt();
+        setCurrentWord('');
       }, 4000);
     }
 
