@@ -1,3 +1,5 @@
+/* eslint-disable object-curly-newline */
+/* eslint-disable no-undef */
 /* eslint-disable array-element-newline */
 import React, { useState, useEffect } from 'react';
 
@@ -36,9 +38,13 @@ const WORD_RESPONSES = {
   yellow: 'Yellow like the sun! ☀️',
   mom: 'Mom is special! ❤️',
   dad: 'Dad is awesome! 👨‍👧‍👦',
+  v: 'that\'s a V for Vera!',
+  c: 'that\'s a C for Cassian!',
+  d: 'that\'s a D for Dada!',
+  b: 'that\'s a B for Buddy!',
 };
 
-export default function AIPrompt({ letters, currentWord, selectedVoice }) {
+export default function AIPrompt({ letters, currentWord, selectedVoice, setCurrentWord }) {
   const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState('');
   const [showResponse, setShowResponse] = useState(false);
@@ -56,6 +62,7 @@ export default function AIPrompt({ letters, currentWord, selectedVoice }) {
 
   // Check for word matches when current word changes
   useEffect(() => {
+    let timer;
     // Convert current word to lowercase for matching
     const lowerWord = currentWord.toLowerCase();
 
@@ -74,18 +81,24 @@ export default function AIPrompt({ letters, currentWord, selectedVoice }) {
       window.speechSynthesis.speak(utterance);
 
       // After showing response, generate a new prompt
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
+        setCurrentWord('');
         setShowResponse(false);
         generatePrompt();
       }, 4000);
-
-      return () => clearTimeout(timer);
     }
 
     // If they've typed 5+ letters without a match, give them a new prompt
-    if (lowerWord.length >= 5) {
+    if (lowerWord.length >= 8) {
       generatePrompt();
+      setCurrentWord('');
     }
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
   }, [currentWord, selectedVoice]);
 
   // Read the prompt aloud when it changes

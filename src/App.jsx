@@ -107,7 +107,7 @@ export default function App() {
 
         <LetterDisplay letters={letters} currentWord={currentWord} />
 
-        <AIPrompt letters={letters} currentWord={currentWord} selectedVoice={selectedVoice} />
+        <AIPrompt letters={letters} currentWord={currentWord} selectedVoice={selectedVoice} setCurrentWord={setCurrentWord} />
 
         <div className="flex gap-4 mb-4">
           <button
