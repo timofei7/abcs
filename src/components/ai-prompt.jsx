@@ -19,8 +19,8 @@ const PROMPTS = [
   'Can you find the letter B on the keyboard?',
   'Try typing \'hello\'!',
   'What\'s your favorite toy? Try to spell it!',
-  'What letter does Dada\'s name start with?',
-  'What letter does Mama\'s name start with?',
+  'What letter does Dada start with?',
+  'What letter does Mama start with?',
   'What letter does Nonna start with?',
   'What letter does your brothers name start with?',
   'Type the first letter of your favorite color!',
@@ -91,8 +91,8 @@ export default function AIPrompt({ letters, currentWord, selectedVoice, setCurre
       }, 4000);
     }
 
-    // If they've typed 5+ letters without a match, give them a new prompt
-    if (lowerWord.length >= 8) {
+    // If they've typed letters without a match, give them a new prompt
+    if (lowerWord.length >= 6) {
       generatePrompt();
       setCurrentWord('');
     }
