@@ -68,7 +68,7 @@ export default function App() {
         }
         timeoutId = setTimeout(() => {
           handleKeyPress(key);
-        }, 100); // 100ms debounce delay
+        }, 250);
       };
     })(),
     [selectedVoice],
